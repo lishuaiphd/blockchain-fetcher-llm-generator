@@ -1,0 +1,11 @@
+datasets
+transformers
+torch
+accelerate
+flask
+bitsandbytes
+peft
+logging
+prometheus-flask-instrumentator
+opentelemetry-sdk
+opentelemetry-instrumentation-flask
