@@ -1,0 +1,1 @@
+{"prompt": "Write Java code to verify a digital signature in Bitcoin", "java": "public class BitcoinAddressVerifier { ... }"}

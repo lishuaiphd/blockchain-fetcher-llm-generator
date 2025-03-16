@@ -1,0 +1,12 @@
+datasets
+transformers
+torch
+accelerate
+bitsandbytes
+peft
+logging
+markupsafe==2.0.1
+flask
+prometheus-flask-instrumentator
+opentelemetry-sdk
+opentelemetry-instrumentation-flask
