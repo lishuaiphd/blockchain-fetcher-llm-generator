@@ -40,5 +40,9 @@ curl -X POST "http://127.0.0.1:5000/generate" -H "Content-Type: application/json
 ## Launch server
 python app.py --port 5000
 
+## Build and launch container
+docker build -t blockchain-verifier-generator .
+docker run -p 5000:5000 blockchain-verifier-generator
+
 # Dataset
 Dataset is not provided. It must be in the format key='JSON', value='Java code'.
