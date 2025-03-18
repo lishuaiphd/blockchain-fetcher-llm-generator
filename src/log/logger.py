@@ -1,4 +1,5 @@
 import logging
+import os
 
 logger = logging.getLogger("model_server")
 logger.setLevel(logging.DEBUG)
@@ -9,6 +10,8 @@ console_handler = logging.StreamHandler()
 console_handler.setFormatter(formatter)
 logger.addHandler(console_handler)
 
-file_handler = logging.FileHandler("../logs/model_server.log")
+log_dir = "../logs"
+os.makedirs(log_dir, exist_ok=True)
+file_handler = logging.FileHandler(os.path.join(log_dir, "model_server.log"))
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
