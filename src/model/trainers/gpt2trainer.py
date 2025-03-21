@@ -20,10 +20,10 @@ class Gpt2Trainer:
 
         if self.saved_model_path:
             _gpt2Loader = CausalLmLoader(self.saved_model_path)
-            self.model = _gpt2Loader.load_model()
+            self.model = _gpt2Loader.load_model(hidden_dropout_prob=0.1, attention_probs_dropout_prob=0.1)
         else:
             _gpt2Loader = CausalLmLoader(self.model_name)
-            self.model = _gpt2Loader.load_model()
+            self.model = _gpt2Loader.load_model(hidden_dropout_prob=0.1, attention_probs_dropout_prob=0.1)
             _data_loader = DataLoader(
                 tokenizer=self.tokenizer,
                 dataset_path=self.dataset_path,
@@ -37,20 +37,25 @@ class Gpt2Trainer:
 
         training_args = TrainingArguments(
             output_dir=output_dir,
+            weight_decay=0.01,
             per_device_train_batch_size=batch_size,
             num_train_epochs=epochs,
             logging_dir=LOGS_DIR,
-            save_strategy="epoch"
+            save_strategy="epoch",
+            eval_strategy="epoch"
         )
 
         trainer = Trainer(
             model=self.model,
             args=training_args,
-            train_dataset=self.dataset["train"]
+            train_dataset=self.dataset["train"],
+            eval_dataset = self.dataset["validation"]
         )
 
         trainer.train()
         self.save_model(output_dir)
+
+        trainer.evaluate(self.dataset["test"])
 
     def configure_lora(self, r=8, lora_alpha=16, lora_dropout=0.1):
         self.lora_config = LoraConfig(
